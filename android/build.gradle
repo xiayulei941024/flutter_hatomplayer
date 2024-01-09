@@ -7,10 +7,6 @@ buildscript {
         maven {
             allowInsecureProtocol = true
             url "http://af.hikvision.com.cn:80/artifactory/maven-down/"
-            credentials {
-                username "maven-down"
-                password "maven-down"
-            }
         }
         maven {
             allowInsecureProtocol = true
@@ -31,10 +27,6 @@ rootProject.allprojects {
         maven {
             allowInsecureProtocol = true
             url "http://af.hikvision.com.cn:80/artifactory/maven-down/"
-            credentials {
-                username "maven-down"
-                password "maven-down"
-            }
         }
         maven {
             allowInsecureProtocol = true
