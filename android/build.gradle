@@ -1,0 +1,83 @@
+group 'com.hikvision.isms.flutter_hatomplayer'
+version '1.0-SNAPSHOT'
+
+buildscript {
+    ext.kotlin_version = '1.5.30'
+    repositories {
+        maven {
+            allowInsecureProtocol = true
+            url "http://af.hikvision.com.cn:80/artifactory/maven-down/"
+        }
+        maven {
+            allowInsecureProtocol = true
+            url "http://af.hikvision.com.cn:80/artifactory/maven-pbg-snapshot/"
+        }
+        google()
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath 'com.android.tools.build:gradle:4.1.0'
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+    }
+}
+
+rootProject.allprojects {
+    repositories {
+        maven {
+            allowInsecureProtocol = true
+            url "http://af.hikvision.com.cn:80/artifactory/maven-down/"
+        }
+        maven {
+            allowInsecureProtocol = true
+            url "http://af.hikvision.com.cn:80/artifactory/maven-pbg-snapshot/"
+        }
+        google()
+        mavenCentral()
+    }
+}
+
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+
+android {
+    compileSdkVersion 30
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+
+    defaultConfig {
+        minSdkVersion 16
+    }
+}
+
+//获取local.properties配置文件
+
+def localProperties = new Properties()
+
+def localPropertiesFile = rootProject.file('local.properties')
+
+if (localPropertiesFile.exists()) {
+    localPropertiesFile.withReader('UTF-8') { reader -> localProperties.load(reader) }
+}
+
+
+def flutterRoot = localProperties.getProperty('flutter.sdk')
+
+if (flutterRoot == null) {
+//    throw new GradleException("Flutter SDK not found. Define location with flutter.sdk in the local.properties file.")
+}
+
+
+dependencies {
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation 'androidx.annotation:annotation:1.2.0'
+    api fileTree(dir: "libs", include: ["*.jar"])
+    compileOnly files("$flutterRoot/bin/cache/artifacts/engine/android-arm/flutter.jar")
+}
